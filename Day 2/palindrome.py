@@ -15,6 +15,6 @@
 
 def is_palindrom(input):
   clean = "".join(char.lower() for char in input if char.isalnum())
-  return clean == clean[::-1]
+  return clean == clean[::-1] # reduce the "".join()'s and boolean condition into one
 
 print(is_palindrom("A man, a plan, a canal: Panama"))
