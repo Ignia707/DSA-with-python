@@ -2,7 +2,7 @@ name: Work Streak Tracker
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # every midnight UTC
+    - cron: "0 0 * * *"  # Runs daily at midnight UTC
   workflow_dispatch:
 
 jobs:
