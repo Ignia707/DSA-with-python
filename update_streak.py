@@ -1,4 +1,4 @@
-import os, datetime, subprocess
+import os, datetime, subprocess, re
 
 today = datetime.date.today()
 log_dir = "logs"
@@ -20,29 +20,23 @@ if commit_count_today > 0:
 dates = sorted([f[:-3] for f in os.listdir(log_dir) if f.endswith(".md")])
 streak = len(dates)
 
-# --- Last 7 days bar chart ---
+# --- 7-day bar chart ---
 def get_past_commits(days=7):
     data = []
     for i in range(days):
         day = today - datetime.timedelta(days=(days - 1 - i))
         log_file = os.path.join(log_dir, f"{day}.md")
-        if os.path.exists(log_file):
-            with open(log_file) as f:
-                lines = f.readlines()
-            count = sum("commit" in l for l in lines)
-        else:
-            count = 0
+        count = 1 if os.path.exists(log_file) else 0
         data.append(count)
     return data
 
 bars = get_past_commits()
 chart = "".join(["▮" if c > 0 else "▯" for c in bars])
-
-# --- Total commits (in repo) ---
 total_commits = int(subprocess.getoutput("git rev-list --count HEAD"))
 
-# --- Update README ---
-readme = f"""# 🔥 Work Streak Tracker
+# --- Build streak section ---
+streak_section = f"""
+# 🔥 Work Streak Tracker
 
 **Current Streak:** {streak} days  
 **Total Commits:** {total_commits}  
@@ -56,5 +50,22 @@ readme = f"""# 🔥 Work Streak Tracker
 
 _Updated automatically every day via GitHub Actions._
 """
-with open("README.md", "w") as f:
-    f.write(readme)
+
+# --- Update only between markers in README ---
+readme_path = "README.md"
+if os.path.exists(readme_path):
+    with open(readme_path, "r", encoding="utf-8") as f:
+        content = f.read()
+else:
+    content = ""
+
+pattern = re.compile(r"<!-- STREAK:START -->(.*?)<!-- STREAK:END -->", re.DOTALL)
+replacement = f"<!-- STREAK:START -->{streak_section}<!-- STREAK:END -->"
+
+if re.search(pattern, content):
+    new_content = re.sub(pattern, replacement, content)
+else:
+    new_content = content.strip() + "\n\n" + replacement
+
+with open(readme_path, "w", encoding="utf-8") as f:
+    f.write(new_content)
