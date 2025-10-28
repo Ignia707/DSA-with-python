@@ -1,0 +1,24 @@
+name: Work Streak Tracker
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # every midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python update_streak.py
+      - run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Auto update streak for $(date +'%Y-%m-%d')" || echo "No changes"
+          git push
