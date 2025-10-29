@@ -15,10 +15,19 @@
 
 ## Dictionaries:
 
-1. .get() -> use for getting value & handle missing key scenarios
+1. .get()
+
+   - If key exists, it returns its value.
+   - If key doesn’t exist, it returns default, but doesn’t add the key to the dict.
+
 2. .items() -> to iterate over keys, values
 3. .keys(), .values() -> obvious :)
-4. .setdefault() -> use for getting key & handle missing key scenarios (.get() but fr keys)
+
+4. .setdefault()
+
+   - If key exists, it returns its value (does not change it).
+   - If key doesn’t exist, it creates the key with default as its value and returns that default.
+
 5. `Concept`:
 
    - O(1) -> insert, lookup, delete
@@ -32,3 +41,12 @@
 2. .discard() -> removes item handles error if not found
 3. Operations -> (|, &, -)
 4. use case -> (Checking existence / removing duplicates), (Mathematical operations (union, intersection))
+
+## collections:
+
+1. Counter()
+   - Counter is a dictionary subclass from Python`s collections module
+   - designed to count hashable items automatically
+   - no need any extra method for checking count and elements between strings, iterables - use this directly
+   - .most_commmon(n) -> gets the top n frequent elements
+   - .elements() -> Expand back into individual elements (!! Doesn't gurantee order !!)
