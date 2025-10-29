@@ -1,20 +1,20 @@
-# student = {
-#   "name": "Alice",
-#   "age": 20,
-#   "major": "CS",
-# }
+student = {
+  "name": "Alice",
+  "age": 20,
+  "major": "CS",
+}
 
-# print(student["name"])
+print(student["name"])
 
-# student["age"] = 21
-# student["Grade"] = "A"
+student["age"] = 21
+student["Grade"] = "A"
 
-# print("After update")
-# print(student)
+print("After update")
+print(student)
 
-# print("Iterating.......")
-# for key, value in student.items():
-#   print(key, ":", value)
+print("Iterating.......")
+for key, value in student.items():
+  print(key, ":", value)
 
 # ! my work from this point
 
