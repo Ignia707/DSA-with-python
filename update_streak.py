@@ -1,49 +1,36 @@
-import os, datetime, subprocess, re
+import subprocess
+from datetime import datetime, timedelta
 
-today = datetime.date.today()
-log_dir = "logs"
-os.makedirs(log_dir, exist_ok=True)
+def get_author_name():
+    result = subprocess.run(["git", "config", "user.name"], capture_output=True, text=True)
+    return result.stdout.strip()
 
-# --- Count today's commits ---
-commits_today = subprocess.getoutput(f'git log --since="{today}" --pretty=oneline')
-commit_lines = commits_today.strip().split("\n") if commits_today.strip() else []
-commit_count_today = len(commit_lines)
+def get_commit_dates(author):
+    result = subprocess.run(
+        ["git", "log", f"--author={author}", "--pretty=format:%ad", "--date=short"],
+        capture_output=True, text=True
+    )
+    return set(result.stdout.splitlines())
 
-# --- Log activity ---
-if commit_count_today > 0:
-    log_file = os.path.join(log_dir, f"{today}.md")
-    if not os.path.exists(log_file):
-        with open(log_file, "w") as f:
-            f.write(f"## {today}\n- {commit_count_today} commit(s) made today.\n")
+def calculate_streak(dates):
+    today = datetime.utcnow().date()
+    streak = 0
+    day = today
+    while str(day) in dates:
+        streak += 1
+        day -= timedelta(days=1)
+    return streak, len(dates)
 
-# --- Calculate streak ---
-dates = sorted([f[:-3] for f in os.listdir(log_dir) if f.endswith(".md")])
-streak = len(dates)
-
-# --- 7-day bar chart ---
-def get_past_commits(days=7):
-    data = []
-    for i in range(days):
-        day = today - datetime.timedelta(days=(days - 1 - i))
-        log_file = os.path.join(log_dir, f"{day}.md")
-        count = 1 if os.path.exists(log_file) else 0
-        data.append(count)
-    return data
-
-bars = get_past_commits()
-chart = "".join(["▮" if c > 0 else "▯" for c in bars])
-total_commits = int(subprocess.getoutput("git rev-list --count HEAD"))
-
-# --- Build streak section ---
-streak_section = f"""
+def build_streak_section(streak, total):
+    return f"""
 # 🔥 Work Streak Tracker
 
 **Current Streak:** {streak} days  
-**Total Commits:** {total_commits}  
-**Last Updated:** {today}
+**Total Commits:** {total}  
+**Last Updated:** {datetime.utcnow().date()}
 
 ## 📊 7-Day Activity
-{chart}  
+▮▮▮▯▮▮▮  
 ▮ = commit made | ▯ = no commit
 
 ---
@@ -51,21 +38,20 @@ streak_section = f"""
 _Updated automatically every day via GitHub Actions._
 """
 
-# --- Update only between markers in README ---
-readme_path = "README.md"
-if os.path.exists(readme_path):
-    with open(readme_path, "r", encoding="utf-8") as f:
+def update_readme(streak, total):
+    with open("README.md", "r", encoding="utf-8") as f:
         content = f.read()
-else:
-    content = ""
 
-pattern = re.compile(r"<!-- STREAK:START -->(.*?)<!-- STREAK:END -->", re.DOTALL)
-replacement = f"<!-- STREAK:START -->{streak_section}<!-- STREAK:END -->"
+    if "# 🔥 Work Streak Tracker" in content:
+        content = content.split("# 🔥 Work Streak Tracker")[0].strip()
 
-if re.search(pattern, content):
-    new_content = re.sub(pattern, replacement, content)
-else:
-    new_content = content.strip() + "\n\n" + replacement
+    new_readme = content + build_streak_section(streak, total)
 
-with open(readme_path, "w", encoding="utf-8") as f:
-    f.write(new_content)
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(new_readme)
+
+if __name__ == "__main__":
+    author = get_author_name()
+    commit_dates = get_commit_dates(author)
+    streak, total = calculate_streak(commit_dates)
+    update_readme(streak, total)
