@@ -22,6 +22,7 @@ This repository contains my daily practice and learning notes for **Data Structu
 ---
 
 <!-- STREAK:START -->
+
 # 🔥 Work Streak Tracker
 
 **Current Streak:** 0 days  
@@ -29,10 +30,12 @@ This repository contains my daily practice and learning notes for **Data Structu
 **Last Updated:** 2025-10-30
 
 ## 📊 7-Day Activity
+
 ▯▯▯▯▯▯▯  
 ▮ = commit made | ▯ = no commit
 
 ---
 
 _Updated automatically every day via GitHub Actions._
+
 <!-- STREAK:END -->
