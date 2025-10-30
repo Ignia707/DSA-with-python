@@ -42,16 +42,33 @@
 3. Operations -> (|, &, -)
 4. use case -> (Checking existence / removing duplicates), (Mathematical operations (union, intersection))
 
+## Tuples:
+
+1. Iteratable like list
+2. Key, value type iteration: (\*values if more than 2 values in the tuple)
+
+   ```
+   for key, *values in pairs:
+      print(key, values)
+   ```
+
 ## collections:
 
-1. Counter()
+1. Counter(iterable)
 
-   - Counter is a dictionary subclass from Python`s collections module
+   - Counter is a dictionary subclass from Python's `collections` module
+   - iterable -> list, tuple, string and dictionary
    - designed to count hashable items automatically
    - no need any extra method for checking count and elements between strings, iterables - use this directly
    - .most_commmon(n) -> gets the top n frequent elements
    - .elements() -> Expand back into individual elements (!! Doesn't gurantee order !!)
 
 2. defaultdict(type)
+
    - automatically creates a default value for missing keys -> more like default value for all keys until and unless changed (no KeyError)
    - `type` -> int, list => int default is "0", list default is "[]"
+
+3. deque
+   - implemented as doubly linked list -> slicing / indexing is slower than list
+   - Insertion, removal - start, end -> O(n)
+   - use when: `need fast FIFO/LIFO`
