@@ -2,24 +2,44 @@ name: Work Streak Tracker
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # Runs daily at midnight UTC
+    - cron: "0 0 * * *" # daily at midnight UTC
   workflow_dispatch:
+
+permissions:
+  contents: write # allow pushing changes
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
-      - run: python update_streak.py
-      - run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib
+
+      - name: Run streak updater
+        run: |
+          python update_streak.py
+
+      - name: Commit & push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # ensure we have latest; prefer safe rebase (ignore error)
           git pull origin main --rebase || true
-          git add .
-          git commit -m "Auto update streak for $(date +'%Y-%m-%d')" || echo "No changes"
-          git push
+          git add README.md streak_chart.png || true
+          git commit -m "Auto update streak and chart for $(date -u +%F)" || echo "No changes to commit"
+          # push using token auth (checkout provides token but push plain works too)
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
