@@ -3,6 +3,8 @@ import matplotlib.dates as mdates
 import pandas as pd
 import numpy as np
 
+plt.style.use("dark_background")
+
 # --- Example Data (30 days) ---
 np.random.seed(42)
 dates = pd.date_range("2025-10-01", "2025-10-30")
@@ -23,7 +25,7 @@ plt.plot(df["date"], df["activity_count"], color="#555", linewidth=1.2, alpha=0.
 top_idx = df["activity_count"].nlargest(7).index
 for i in top_idx:
     plt.text(df["date"][i], df["activity_count"][i] + 0.3, str(df["activity_count"][i]),
-             ha="center", va="bottom", fontsize=7, color="#333")
+             ha="center", va="bottom", fontsize=8, color="white", fontweight="bold")
 
 # --- Format axes ---
 plt.title("🗓️ October Activity Overview", fontsize=13, fontweight="bold", pad=10)

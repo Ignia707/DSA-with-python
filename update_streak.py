@@ -165,7 +165,7 @@ def update_readme_section(new_section_md):
 
 def make_chart(counts_counter, out_file=CHART_FILE, transparent=True):
     """
-    Creates a visually appealing 30-day activity line chart with color-coded points.
+    Creates a visually rich 30-day activity chart with dark theme and white labels.
     """
     import matplotlib.pyplot as plt
     import matplotlib.dates as mdates
@@ -173,37 +173,49 @@ def make_chart(counts_counter, out_file=CHART_FILE, transparent=True):
     import numpy as np
     from datetime import datetime, timedelta, timezone
 
+    plt.style.use("dark_background")
+
     days = 30
     today = datetime.now(timezone.utc).date()
     dates = [today - timedelta(days=i) for i in range(days - 1, -1, -1)]
     commits = [counts_counter.get(str(d), 0) for d in dates]
-
     df = pd.DataFrame({"date": dates, "activity_count": commits})
+
+    # --- Color scheme ---
+    cmap = plt.cm.YlOrRd
+    norm = plt.Normalize(vmin=min(commits), vmax=max(commits) if max(commits) > 0 else 1)
 
     plt.figure(figsize=(10, 4))
     points = plt.scatter(
         df["date"], df["activity_count"],
-        c=df["activity_count"], cmap="YlOrRd", s=70,
-        edgecolor="#222", linewidth=0.6
+        c=df["activity_count"], cmap=cmap, s=70,
+        edgecolor="#111", linewidth=0.6
     )
-    plt.plot(df["date"], df["activity_count"], color="#666", linewidth=1.2, alpha=0.7)
+    plt.plot(df["date"], df["activity_count"], color="#999", linewidth=1.2, alpha=0.7)
 
-    # Label top 7 days
+    # --- Value labels for top points ---
     top_idx = df["activity_count"].nlargest(7).index
     for i in top_idx:
-        plt.text(df["date"][i], df["activity_count"][i] + 0.3, str(df["activity_count"][i]),
-                 ha="center", va="bottom", fontsize=7, color="#333")
+        plt.text(
+            df["date"][i], df["activity_count"][i] + 0.3,
+            str(df["activity_count"][i]),
+            ha="center", va="bottom", fontsize=8,
+            color="white", fontweight="bold"
+        )
 
-    # Format axes
+    # --- Axes & labels ---
     plt.title(f"🗓️ {today.strftime('%B')} Activity Overview", fontsize=13, fontweight="bold", pad=10)
-    plt.ylabel("Commits", fontsize=9)
-    plt.xticks(rotation=45, fontsize=8)
+    plt.ylabel("Commits", fontsize=9, color="white")
+    plt.xticks(rotation=45, fontsize=8, color="white")
+    plt.yticks(color="white")
     plt.grid(axis="y", linestyle="--", alpha=0.3)
+
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     plt.gca().xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
 
     plt.tight_layout()
-    plt.colorbar(points, label="Commit intensity", pad=0.02)
+    cbar = plt.colorbar(points, label="Commit Intensity", pad=0.02)
+    cbar.ax.yaxis.label.set_color("white")
     plt.savefig(out_file, dpi=300, transparent=transparent)
     plt.close()
 
