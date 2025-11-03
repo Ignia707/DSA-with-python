@@ -225,7 +225,7 @@ def make_chart(counts_counter, out_file=CHART_FILE):
     
     # Labels and title
     month_name = today.strftime('%B %Y')
-    ax.set_title(f'📅 Commit Activity - Last 30 Days ({month_name})', 
+    ax.set_title(f'Commit Activity - Last 30 Days ({month_name})', 
                  fontsize=14, fontweight='bold', color='white', pad=15)
     ax.set_ylabel('Commits', fontsize=11, color='white')
     ax.set_xlabel('Date', fontsize=11, color='white')
