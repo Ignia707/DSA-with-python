@@ -22,34 +22,21 @@ This repository contains my daily practice and learning notes for **Data Structu
 ---
 
 <!-- STREAK:START -->
-
 # 🔥 Work Streak Tracker
 
-> 30-day activity heatmap + 7-day detail view
+> Track your DSA learning consistency
 
-**Current Streak:** 3 days  
-**Total Commits:** 12  
-**Last Updated:** 2025-10-30
+**Current Streak:** 0 days  
+**Total Commits (30d):** 14  
+**Last Updated:** 2025-11-03
 
-## 📆 30-Day Heatmap
+## 📊 30-Day Activity Chart
 
-![30-Day Heatmap](streak_chart.png)
+![30-Day Activity](streak_chart.png)
 
-**Active days:** 3/7 • **Best day:** Oct 29 (4) • **Avg/day:** 1.29
-
-### 🗓️ Last 7 Days Summary
-
-| Date   | Commits |
-| ------ | ------- |
-| Oct 24 | 0       |
-| Oct 25 | 0       |
-| Oct 26 | 0       |
-| Oct 27 | 0       |
-| Oct 28 | 2       |
-| Oct 29 | 4       |
-| Oct 30 | 3       |
-
-_Heatmap and summary auto-updated daily via GitHub Actions._
+**Active days:** 6/30 • 
+**Best day:** Oct 30 (5 commits) • 
+**Avg/day:** 0.5
 
 ---
 
