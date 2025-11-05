@@ -1,3 +1,9 @@
+# Note POINTS:
+
+1. Be very consicous of the input and return types
+
+2.
+
 # Aha Logics:
 
 1. ### chr((ord(char) - 97 + key) % 26 + 97) &rarr; for wrapping ASCII value shift (a-z)
@@ -71,4 +77,4 @@
 3. deque
    - implemented as doubly linked list -> slicing / indexing is slower than list
    - Insertion, removal - start, end -> O(n)
-   - use when: `need fast FIFO/LIFO`
+   - use when: `need fast FIFO/LIFO` OR `need efficient insertion/deletion from both ends`

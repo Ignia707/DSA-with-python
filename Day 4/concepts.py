@@ -27,23 +27,23 @@
 
 # # * Counter
 
-# from collections import Counter
+from collections import Counter
 
-# chars = "abracadabra"
-# freq = Counter(chars)
+chars = "abracadabra"
+freq = Counter(chars)
 
-# print(freq)
-# print(freq.most_common(3))
-# print(freq["b"])
-# print(list(freq.elements()))
+print(freq)
+print(freq.most_common(3))
+print(freq["b"])
+print(list(freq.elements()))
 
-# c1 = Counter("abcde")
-# c2 = Counter("cdefg")
+c1 = Counter("abcde")
+c2 = Counter("cdefg")
 
-# print(f"c1: {c1}")
-# print(f"c2: {c2}")
-# print(c1 + c2) # ? combine counts
-# print(c1 - c2) # ? subtract counts (no negatives)
+print(f"c1: {c1}")
+print(f"c2: {c2}")
+print(c1 + c2) # ? combine counts
+print(c1 - c2) # ? subtract counts (no negatives)
 
 # # ! my work
 
@@ -93,22 +93,22 @@
 
 # ! my work
 
-from collections import deque
+# from collections import deque
 
-dq = deque([1, 4, 5, 7])
+# dq = deque([1, 4, 5, 7])
 
-dq.append(9)
-print(dq)
+# dq.append(9)
+# print(dq)
 
-dq.append(10)
-print(dq)
+# dq.append(10)
+# print(dq)
 
-dq.appendleft(90)
-print(dq)
+# dq.appendleft(90)
+# print(dq)
 
-dq.pop()
-print(dq)
+# dq.pop()
+# print(dq)
 
-dq.popleft()
-print(dq)
+# dq.popleft()
+# print(dq)
 
