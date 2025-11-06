@@ -2,7 +2,11 @@
 
 1. Be very consicous of the input and return types
 
-2.
+2. Re-raise errors to log or let python handle it -> reduce redudant code
+
+3. Use built-in methods if possible
+
+4.
 
 # Aha Logics:
 
@@ -18,6 +22,10 @@
 2. for least lexicograhpic value char use `min(list_of_chars)`
 
 # Tools
+
+## General ones:
+
+1. .index() -> to get index of char, item from string or list
 
 ## Dictionaries:
 
