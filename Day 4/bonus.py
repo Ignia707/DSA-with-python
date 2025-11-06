@@ -25,7 +25,7 @@ class HitCounter:
     raise TimeStampError()
   
   def get_hits(self, timestamp):
-    while self.queue[0] > timestamp - 300:
+    while self.queue and self.queue[0] <= timestamp - 300:
       self.queue.popleft()
     
     return self.__len__()
