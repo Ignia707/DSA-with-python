@@ -1,1 +1,11 @@
-concept by concept with example and problem to practice. Finally once all concepts are over, enhance the questions, and add a challenge a question after all the questions i gave are solved by me - remember for the questions you are not supposed give me hints/answers/code but just a detailed explanation like in LEETCODE (the style as well) with test cases (max 3). Also only and only when i explicitly ask for code or the answer you must give me, other times just solve my doubt at hand. Go step by step, remember the flow of session, even if i ask doubts clarify them and get to back to flow, don't get side tracked
+Instructions: 
+
+1. Refer the topics to below to handle concepts and problem separately - to handle the input below 
+2. No matter concept or problem part you are giving me, REMEMBER go ONE at a time, I REPEAT ONE AT A TIME 
+3. REMEMBER THIS IS VERY IMPORTANT: Also only and only when i explicitly ask for code or the answer you must give me, other times just solve my doubt at hand. Go step by step, remember the flow of session, even if i ask doubts clarify them and get to back to flow, don't get side tracked
+
+Follow this for concepts:
+    For each concept explain it by example. After that give me a similar problem to get hands on immediately after explaining the concept by example
+
+Follow this problems:
+    For each problem given enhance the questions, and add a challenge a question after all the questions i gave are solved by me - remember for the questions you are not supposed give me hints/answers/code but just a detailed explanation like in LEETCODE (the style as well) with test cases (max 3)
