@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+    #!/usr/bin/env python3
 """
 update_streak.py (Debug Version)
 Adds detailed logging to understand why commits aren't being detected
@@ -111,16 +111,15 @@ def commit_counts_by_date(author, days=DAYS):
 
 def calc_streak_from_counts(counts_counter):
     """
-    Count consecutive days with commits, starting from yesterday.
-    We check yesterday first to avoid penalizing an incomplete today.
+    Count consecutive days with commits, starting from today.
     """
-    yesterday = (datetime.now(timezone.utc).date() - timedelta(days=1))
+    today = datetime.now(timezone.utc).date()  # Changed from yesterday
     streak = 0
-    d = yesterday
+    d = today  # Changed from yesterday
     
-    print(f"\n  DEBUG: Calculating streak from {yesterday}")
+    print(f"\n  DEBUG: Calculating streak from {today}")
     
-    # Count backwards from yesterday
+    # Count backwards from today
     while True:
         count = counts_counter.get(str(d), 0)
         print(f"    {d}: {count} commits")
