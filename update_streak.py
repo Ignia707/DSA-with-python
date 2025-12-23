@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 """
-update_streak.py (Fixed & Improved)
-- Detects primary human author (skips bots)
-- Builds per-day commit counts for last 30 days
-- Computes current consecutive-day streak (counts up to yesterday to avoid penalizing incomplete days)
-- Generates a clear, readable day-by-day bar chart
-- Updates README.md with streak info and chart
+update_streak.py (Debug Version)
+Adds detailed logging to understand why commits aren't being detected
 """
 
 import subprocess
@@ -74,7 +70,23 @@ def commit_counts_by_date(author, days=DAYS):
     # Get commits from last N days
     since_date = (datetime.now(timezone.utc).date() - timedelta(days=days)).isoformat()
     
+    print(f"\n  DEBUG: Searching for commits since {since_date}")
+    
     if author:
+        # Get full commit log with details for debugging
+        out_full = run_git([
+            "log", 
+            f"--author={author}", 
+            f"--since={since_date}",
+            "--pretty=format:%ad|%s", 
+            "--date=short",
+            "-20"  # Last 20 commits for debug
+        ])
+        
+        print(f"  DEBUG: Recent commits by {author}:")
+        for line in out_full.splitlines()[:10]:
+            print(f"    {line}")
+        
         out = run_git([
             "log", 
             f"--author={author}", 
@@ -91,7 +103,11 @@ def commit_counts_by_date(author, days=DAYS):
         ])
     
     lines = [l.strip() for l in out.splitlines() if l.strip()]
-    return Counter(lines)
+    counter = Counter(lines)
+    
+    print(f"  DEBUG: Commit counts by date: {dict(counter)}")
+    
+    return counter
 
 def calc_streak_from_counts(counts_counter):
     """
@@ -102,12 +118,18 @@ def calc_streak_from_counts(counts_counter):
     streak = 0
     d = yesterday
     
+    print(f"\n  DEBUG: Calculating streak from {yesterday}")
+    
     # Count backwards from yesterday
     while True:
-        if counts_counter.get(str(d), 0) > 0:
+        count = counts_counter.get(str(d), 0)
+        print(f"    {d}: {count} commits")
+        if count > 0:
             streak += 1
             d -= timedelta(days=1)
         else:
+            break
+        if streak > 100:  # Safety limit
             break
     
     return streak
@@ -250,7 +272,7 @@ def make_chart(counts_counter, out_file=CHART_FILE):
 
 def main():
     print("="*60)
-    print("Starting Streak Tracker Update")
+    print("Starting Streak Tracker Update (DEBUG MODE)")
     print("="*60)
     
     # Detect author
@@ -272,13 +294,15 @@ def main():
             print(f"  Recent dates: {recent}")
     except Exception as e:
         print(f"✗ ERROR gathering commits: {e}")
+        import traceback
+        traceback.print_exc()
         counts_counter = Counter()
     
     # Calculate metrics
     streak = calc_streak_from_counts(counts_counter)
     total = total_commits_from_counter(counts_counter)
     
-    print(f"✓ Current streak: {streak} days")
+    print(f"\n✓ Current streak: {streak} days")
     print(f"✓ Total commits (30d): {total}")
     
     # Generate chart
