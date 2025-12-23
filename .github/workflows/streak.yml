@@ -2,7 +2,7 @@ name: Work Streak Tracker
 
 on:
   schedule:
-    - cron: "0 0 * * *" # daily at midnight UTC
+  - cron: "15 2 * * *"  # 2:15 AM UTC instead
   workflow_dispatch:
 
 permissions:
