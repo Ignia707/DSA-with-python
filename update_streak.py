@@ -67,6 +67,12 @@ def commit_counts_by_date(author, days=DAYS):
     Return Counter mapping 'YYYY-MM-DD' -> commit_count for the given author.
     Only counts commits from the last `days` days.
     """
+    # Force fetch latest commits
+    try:
+        run_git(["fetch", "origin", "main"])
+        run_git(["reset", "--hard", "origin/main"])
+    except:
+        pass  # If this fails, continue with what we have
     # Get commits from last N days
     since_date = (datetime.now(timezone.utc).date() - timedelta(days=days)).isoformat()
     
