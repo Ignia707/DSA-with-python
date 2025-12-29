@@ -15,3 +15,4 @@ l1 = [1, 2, 3, 4, 6]
 # print(l1[-2::-1]) checked the indexing in reverse --> slicing
 
 
+print(13 // 2)  # ! // is floor division nigger, remember

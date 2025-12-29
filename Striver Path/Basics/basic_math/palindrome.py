@@ -16,13 +16,13 @@ def palindrome(n):
 
 """
 The idea is simple if 12321 is the number, then checking the first half is sufficient
-That is, if it's palindrom then the same sequence would be in 2nd half
+That is, if it's palindrome then the same sequence would be in 2nd half
 
 Edge cases -> less than zero, multiple of 10
 
 while exiting while loop,
 for 12321,
-Odd number of digits -> rev = 123, n=12 ==> (rev // 10) to take the middle element out
+Odd number of digits -> rev = 123, n = 12 ==> (rev // 10) to take the middle element out
 
 for 1221, 
 Even number of digits -> rev = 12, x 12
