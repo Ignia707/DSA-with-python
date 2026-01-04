@@ -27,15 +27,15 @@ This repository contains my daily practice and learning notes for **Data Structu
 > Track your DSA learning consistency
 
 **Current Streak:** 0 days  
-**Total Commits (30d):** 3  
-**Last Updated:** 2026-01-03
+**Total Commits (30d):** 2  
+**Last Updated:** 2026-01-04
 
 ## 📊 30-Day Activity Chart
 
 ![30-Day Activity](streak_chart.png)
 
 **Active days:** 2/30 • 
-**Best day:** Dec 05 (2 commits) • 
+**Best day:** Dec 06 (1 commits) • 
 **Avg/day:** 0.1
 
 ---
