@@ -16,7 +16,7 @@ arr = list(map(int, input("Enter numbers with spaces: ").split()))
 """
 
 # * hash array method 
-# ! array size limitation
+# ! only limitted numbers hashable 
 def hash_array():
     hash_array = [0] * 13
     for num in arr:
@@ -31,4 +31,3 @@ def hash_array():
     return 1
 
     
-# * 
