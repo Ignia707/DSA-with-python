@@ -2,6 +2,8 @@
 
 Idea: partition yes. Each element is compared with left element till it's in sorted position
 
+Params:
+- curr --> to track position as we move in left-partition
 """
 
 arr = [13,46,24,52,20,9]

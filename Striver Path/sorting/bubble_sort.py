@@ -15,7 +15,7 @@ def bubble_sort(arr): # ? here we mutate the array we can use it as in-place cha
     for i in range(length):
         swapped = False
 
-        for j in range(length - i - 1): # ! see in terms of number os comparisons. if "- 1" not there then for the last element this accesses "j + 1" which doesn't exist
+        for j in range(length - i - 1): # ! see in terms of number of comparisons. if "- 1" not there then for the last element this accesses "j + 1" which doesn't exist
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
