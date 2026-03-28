@@ -1,0 +1,5 @@
+optimize the code in the best way possible for leetcode submission (space, time complexity). before giving me code. give me hints to help me:
+
+1. optimize this code myself
+
+2. understand and remember best practices to optimize any code in future
